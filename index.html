@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Строки</title>
+
+    <script>
+        //String
+        //I.Complete the solution so that it reverses the string value passed into it.
+
+        //подход императивный
+        //вводим переменную для ввода слова
+        let str1 = prompt("Введите слово, которое нужно вывести с инверсией", "");
+        console.log(typeof str1);//пиши и посматривай консоль всегда, если что-то непонятно
+
+        //
+        function reverseString(str) {
+            //объявляем переменную нового слова, и переменную для записи
+            for (var reversedStr = "", i = str.length - 1; i >= 0; i--) {
+                //побуквенно строим новое слово
+                reversedStr += str[i];
+            }
+            return reversedStr;
+        }
+
+        // alert("Введенное слово с инверсией (императивным): " + reverseString(str1));
+
+        //? на засыпку. почему если в цикле поставить вместо var - let - не будет работать?
+
+        //подход декларативный - разбивка на массив, реверс, конкатинация
+        function reverseString2(str) {
+            return str
+            split("")
+            reverse()
+            join("");
+        }
+
+        // alert("Введенное слово с инверсией (декларативным): " + reverseString(str1));
+
+        //II It's pretty straightforward. Your goal is to create a function that removes the first and last characters
+        // of a string. You're given one parameter, the original string. You don't have to worry with strings with less
+        // than two characters.
+
+
+        function deleteLastSymbolnFirstSymbol(str) {
+            let str2 = str.slice(1, -1);
+            return str2
+        }
+
+        alert("удаленное слово: " + (deleteLastSymbolnFirstSymbol(str1)));
+
+        //??? почему обязательно объявлять в функции новую переменную? если ее не объявлять, что произойдет?
+
+        // //III Palindrome strings
+        // A palindrome is a word, phrase, number, or other sequence of characters which reads the same backward or
+        // forward. This includes capital letters, punctuation, and word dividers.
+        //Implement a function that checks if something is a palindrome.
+
+        function isPalindrom(str) {
+
+            for (var reversedStr = "", i = str.length - 1; i >= 0; i--) {
+                reversedStr += str[i];
+            }
+            alert(str);
+            alert(reversedStr);
+            console.log(typeof reversedStr);
+            //что измеится, если поставить два знака равно? или один?
+            if (reversedStr = str) {
+                return alert("слово - палиндром");
+            } else {
+                return alert("слово - НЕ палиндром");
+            }
+
+        }
+
+        //что выведет alert("удаленное слово: " + ( isPalindrom(str1))); и почему?
+        isPalindrom(str1);
+
+        // //IV An anagram is the result of rearranging the letters of a word to produce a new word (see wikipedia).
+        // Note: anagrams are case insensitive
+        // Complete the function to return true if the two arguments given are anagrams of each other; return false
+        // otherwise.
+
+        //надо разбить введенные значения на массивы и сравнивать, сначала - на то, что количество символов одинаково,
+        //и если одинаково - сравнить посимвольно
+
+
+        //вспомогательная функция для хранения данных
+        const buildCharObject = str => {
+            //массив
+            const charObj = {}
+            //значение первой буквы регулярным выражением переводится в нижний регистр ^ - первый, \w - буква, /g - глобально
+            for (let char of str.replace(/[^\w]/g).toLowerCase()) {
+
+                charObj[char] = charObj[char] + 1 || 1
+            }
+            return charObj
+        }
+
+        // осовная функция
+        const anagram = (strA, strB) => {
+            // создаем объект а
+            const aCharObject = buildCharObject(strA)
+            // создаем объект b
+            const bCharObject = buildCharObject(strB)
+
+            //сначала просто сравниваем на строгое неравенство по количеству ключей
+            if (Object.keys(aCharObject).length !== Object.keys(bCharObject).length) {
+                return false
+            }
+            //одинаковое количество ключей - тогда проходим посимыольную проверку
+            for (let char in aCharObject) {
+                if (aCharObject[char] !== bCharObject[char]) {
+                    return false
+                }
+            }
+            // if both the above checks succeed,
+            // you have an anagram: return true
+            return true
+        }
+        let dd = prompt("Введите слово 1", "");
+        let pp = prompt("Введите слово 2", "");
+        alert(anagram(dd, pp))
+
+        //V
+        // It's your Birthday. Your colleagues buy you a cake. The numbers of candles on the cake is provided (x).
+        // Please note this is not reality, and your age can be anywhere up to 1,000. Yes, you would look a mess.
+        // As a surprise, your colleagues have arranged for your friend to hide inside the cake and burst out. They
+        // pretend this is for your benefit, but likely it is just because they want to see you fall over covered in cake.
+        // Sounds fun!
+        //When your friend jumps out of the cake, he/she will knock some of the candles to the floor. If the number of
+        // candles that fall is higher than 70% of total candles (x), the carpet will catch fire.
+        //You will work out the number of candles that will fall from the provided string (y). You must add up the
+        // character ASCII code of each even indexed (assume a 0 based indexing) character in y, with the alphabetical
+        // position of each odd indexed character in y to give the string a total.
+        //     example: 'abc' --> a=97, b=2, c=99 --> y total = 198.
+        // If the carpet catches fire, return 'Fire!', if not, return 'That was close!'.
+
+        //забьем возраст в 100 лет
+        let age = 100
+        //candles
+        let candles = prompt("Выругайся коротко, твой торт испортили", "");
+
+        //разбивем на массив, делаем первую букву маленькой
+        const candlesObject = str => {
+            const charObjСandles = {}
+            for (let char of str.replace(/[^\w]/g).toLowerCase()) {
+                charObjСandles[char] = charObjСandles[char] + 1 || 1
+            }
+            return charObjСandles
+        }
+
+        //основная функция
+
+        const mat = (matA) => {
+            // создаем объект мата
+            const matObject = candlesObject(matA)
+
+            for (var even, i=0; i<=matObject.length; i+=2) {
+                even+=[i];
+            }
+            for (var not_even, i=1; i<=matObject.length; i+=2) {
+                not_even+=[i].charCodeAt;
+            }
+        }
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
